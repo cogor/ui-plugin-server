@@ -19,5 +19,12 @@ if [ -e ${DOCKERFILE}.${ARCH} ]; then
     DOCKERFILE=${DOCKERFILE}.${ARCH}
 fi
 
-docker build -f ${DOCKERFILE} -t ${IMAGE} .
+# Build for ARM64 (default)
+docker build -f ${DOCKERFILE} -t ${IMAGE}-arm64 .
+
+# Build for ARM64
+docker build --platform=linux/arm64 -f ${DOCKERFILE} -t ${IMAGE}-arm64 .
+
+# Build for AMD64
+docker build --platform=linux/amd64  -f ${DOCKERFILE} -t ${IMAGE}-amd64 .
 echo Built ${IMAGE}
